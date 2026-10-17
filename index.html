@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scriptora — Catatan Berbasis Blok</title>
+  <!-- Google Fonts: Inter (Fallback ke system-ui & Segoe UI) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Stylesheet Utama -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Wrapper Aplikasi Utama (Flexbox 100vh) -->
+  <div class="app-layout">
+    
+    <!-- ==================== SIDEBAR (KIRI) ==================== -->
+    <aside class="sidebar" aria-label="Navigasi Halaman">
+      <!-- Header Aplikasi & Tombol Tema -->
+      <header class="sidebar__header">
+        <div class="brand">
+          <span class="brand__icon" aria-hidden="true">✦</span>
+          <h1 class="brand__title">Scriptora</h1>
+        </div>
+      </header>
+
+      <!-- Aksi Utama Sidebar -->
+      <div class="sidebar__actions">
+        <button type="button" id="btn-new-page" class="btn btn--primary btn--full">
+          <span class="btn__icon" aria-hidden="true">+</span>
+          <span>Halaman Baru</span>
+        </button>
+
+        <button type="button" id="btn-theme-toggle" class="btn btn--theme btn--full" aria-label="Toggle Dark atau Light Mode">
+          <span class="theme-icon" aria-hidden="true">🌙</span>
+          <span class="theme-text">Dark / Light Mode</span>
+        </button>
+      </div>
+
+      <!-- Daftar Halaman Catatan -->
+      <nav class="sidebar__nav" aria-label="Daftar Catatan">
+        <div class="sidebar__section-label">Halaman Catatan</div>
+        <ul id="page-list" class="page-list">
+          <li class="page-list__item is-active" data-page-id="page-1">
+            <span class="page-list__icon" aria-hidden="true">📄</span>
+            <span class="page-list__title">Selamat Datang di Scriptora</span>
+            <button type="button" class="page-delete-btn" title="Hapus Halaman">×</button>
+          </li>
+          <li class="page-list__item" data-page-id="page-2">
+            <span class="page-list__icon" aria-hidden="true">📌</span>
+            <span class="page-list__title">Rencana Proyek Semester 5</span>
+            <button type="button" class="page-delete-btn" title="Hapus Halaman">×</button>
+          </li>
+          <li class="page-list__item" data-page-id="page-3">
+            <span class="page-list__icon" aria-hidden="true">💡</span>
+            <span class="page-list__title">Catatan Kuliah PABWE</span>
+            <button type="button" class="page-delete-btn" title="Hapus Halaman">×</button>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Footer Sidebar -->
+      <footer class="sidebar__footer">
+        <span class="sidebar__status">Vanilla JS • Block Editor</span>
+      </footer>
+    </aside>
+
+    <!-- ==================== AREA EDITOR (KANAN) ==================== -->
+    <main class="editor-area">
+      
+      <!-- Area Konten yang Dapat Di-scroll -->
+      <div class="editor-scroll-container" id="editor-scroll-container">
+        <article class="editor-canvas">
+          
+          <!-- Input Judul Halaman ala Notion -->
+          <header class="page-header">
+            <input
+              type="text"
+              id="page-title-input"
+              class="page-title-input"
+              placeholder="Tanpa Judul"
+              value="Selamat Datang di Scriptora"
+              aria-label="Judul Halaman"
+              autocomplete="off"
+            />
+            <div class="page-meta">
+              <span id="page-last-edited">Terakhir disunting hari ini</span>
+              <span class="page-meta__dot">•</span>
+              <span id="page-block-count">4 blok catatan</span>
+            </div>
+          </header>
+
+          <!-- Kontainer Utama Blok-Blok Catatan -->
+          <section id="blocks-container" class="blocks-container" aria-label="Blok Catatan">
+            
+            <!-- Contoh Blok 1: Heading 1 -->
+            <div class="block-item block-item--h1" data-block-id="block-1" data-block-type="h1">
+              <div class="block-handle" title="Tipe Blok: Heading 1" aria-hidden="true">H1</div>
+              <div
+                class="block-content"
+                contenteditable="true"
+                data-placeholder="Heading 1..."
+              >Mulai Menulis dengan Blok</div>
+              <button type="button" class="block-delete-btn" title="Hapus Blok">×</button>
+            </div>
+
+            <!-- Contoh Blok 2: Paragraf -->
+            <div class="block-item block-item--p" data-block-id="block-2" data-block-type="p">
+              <div class="block-handle" title="Tipe Blok: Paragraf" aria-hidden="true">¶</div>
+              <div
+                class="block-content"
+                contenteditable="true"
+                data-placeholder="Ketik sesuatu untuk memulai paragraf..."
+              >Scriptora dirancang dengan estetika minimalis ala Notion. Setiap bagian tulisan Anda tersusun sebagai blok independen yang rapi, bersih, dan nyaman dibaca baik dalam mode terang maupun gelap.</div>
+              <button type="button" class="block-delete-btn" title="Hapus Blok">×</button>
+            </div>
+
+            <!-- Contoh Blok 3: To-Do (Selesai) -->
+            <div class="block-item block-item--todo is-completed" data-block-id="block-3" data-block-type="todo">
+              <label class="todo-checkbox-wrapper">
+                <input type="checkbox" class="todo-checkbox" checked />
+                <span class="todo-checkmark" aria-hidden="true"></span>
+              </label>
+              <div
+                class="block-content"
+                contenteditable="true"
+                data-placeholder="Daftar tugas..."
+              >Membuat struktur layout HTML5 &amp; CSS3 dengan CSS Variables</div>
+              <button type="button" class="block-delete-btn" title="Hapus Blok">×</button>
+            </div>
+
+            <!-- Contoh Blok 4: To-Do (Belum Selesai) -->
+            <div class="block-item block-item--todo" data-block-id="block-4" data-block-type="todo">
+              <label class="todo-checkbox-wrapper">
+                <input type="checkbox" class="todo-checkbox" />
+                <span class="todo-checkmark" aria-hidden="true"></span>
+              </label>
+              <div
+                class="block-content"
+                contenteditable="true"
+                data-placeholder="Daftar tugas..."
+              >Menambahkan interaksi dinamis menggunakan Vanilla JavaScript pada tahap berikutnya</div>
+              <button type="button" class="block-delete-btn" title="Hapus Blok">×</button>
+            </div>
+
+          </section>
+        </article>
+      </div>
+
+      <!-- Floating Action Bar di Bagian Bawah Editor -->
+      <div class="floating-bar-wrapper">
+        <div class="floating-action-bar" role="toolbar" aria-label="Tambah Blok Baru">
+          <span class="floating-bar__label">Tambah Blok:</span>
+          <button type="button" id="btn-add-h1" class="btn btn--floating" data-add-type="h1">
+            + Heading 1
+          </button>
+          <button type="button" id="btn-add-p" class="btn btn--floating" data-add-type="p">
+            + Paragraf
+          </button>
+          <button type="button" id="btn-add-todo" class="btn btn--floating" data-add-type="todo">
+            + To-Do
+          </button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Script Utama Aplikasi (Vanilla JavaScript) -->
+  <script src="js/app.js"></script>
+</body>
+</html>
